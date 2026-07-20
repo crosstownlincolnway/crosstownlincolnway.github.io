@@ -190,6 +190,7 @@
   .closing .c-facts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
   .chip.side-buy{background:var(--teal-soft);color:var(--teal)}
   .chip.side-sell{background:var(--amber-soft);color:var(--accent-deep)}
+  .chip.side-both{background:#ece9fa;color:#4a3aa7}
   .chip.money{background:#f2f6ef;color:#3c6b34}
   .closings-total{padding:14px 20px;border-top:1px dashed var(--line);font-size:.92rem;color:var(--ink-2)}
   .closings-total b{color:var(--ink)}
@@ -440,12 +441,16 @@
       </div>
       <div class="field">
         <label for="pSide">Buying or selling?</label>
-        <select id="pSide"><option value="Buy">Buying</option><option value="Sell">Selling</option></select>
+        <select id="pSide"><option value="Buy">Buying</option><option value="Sell">Selling</option><option value="Both">Both</option></select>
       </div>
     </div>
     <div class="field">
-      <label for="pPrice">Price point ($)</label>
+      <label for="pPrice" id="pPriceLabel">Price point ($)</label>
       <input type="number" id="pPrice" min="1000" step="any" placeholder="e.g. 400000" required>
+    </div>
+    <div class="field" id="pPrice2Field" style="display:none">
+      <label for="pPrice2">Purchase price ($)</label>
+      <input type="number" id="pPrice2" min="0" step="any" placeholder="e.g. 500000">
     </div>
     <div class="dlg-actions">
       <button type="button" class="ghost-btn" id="pipeCancel">Cancel</button>
@@ -454,7 +459,7 @@
   </form>
 </dialog>
 
-<script>window.DASH_ENC = {"v": 1, "slug": "jaclyn", "salt": "7JBFV5H0r8n/kAQEXux1VQ==", "iter": 300000, "iv": "3UBsr2J2nGQ+zEdb", "ct": "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"};</script>
+<script>window.DASH_ENC = {"v": 1, "slug": "jaclyn", "salt": "7JBFV5H0r8n/kAQEXux1VQ==", "iter": 300000, "iv": "4qVrh4NZr4YIhcvU", "ct": "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"};</script>
 <script>
 /* =====================================================================
    DAILY DASH — shared template logic (identical for every agent)
@@ -671,14 +676,15 @@ window.__bootDash = function(){
     $("pipeEmpty").style.display = pipeline.length ? "none" : "block";
     let total = 0;
     pipeline.forEach(p=>{
-      const comm = p.price * COMMISSION_RATE;
+      const totalPrice = p.price + (p.price2 || 0);
+      const comm = totalPrice * COMMISSION_RATE;
       total += comm;
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td><b>${esc(p.name)}</b></td>
         <td>${esc(p.area)}</td>
-        <td><span class="chip side-${p.side.toLowerCase()}">${p.side === "Buy" ? "🔑 Buying" : "🏷️ Selling"}</span></td>
-        <td class="num" style="text-align:right">${fmtMoney(p.price)}</td>
+        <td><span class="chip side-${p.side.toLowerCase()}">${p.side === "Buy" ? "🔑 Buying" : p.side === "Sell" ? "🏷️ Selling" : "🔄 Both"}</span></td>
+        <td class="num" style="text-align:right">${fmtMoney(totalPrice)}</td>
         <td class="num comm" style="text-align:right">${fmtMoney(comm)}</td>
         <td>
           <div class="row-actions">
@@ -711,14 +717,25 @@ window.__bootDash = function(){
       $("pipeDlgTitle").textContent = "✏️ Edit Prospect";
       $("pName").value = item.name; $("pArea").value = item.area;
       $("pSide").value = item.side; $("pPrice").value = item.price;
+      $("pPrice2").value = item.price2 || "";
+      syncSideFields();
       $("pipeDlg").showModal();
     }
   });
+
+  function syncSideFields(){
+    const both = $("pSide").value === "Both";
+    $("pPrice2Field").style.display = both ? "" : "none";
+    $("pPriceLabel").textContent = both ? "Sale price ($)" : "Price point ($)";
+    if (!both) $("pPrice2").value = "";
+  }
+  $("pSide").addEventListener("change", syncSideFields);
 
   $("openAdd").addEventListener("click", ()=>{
     editingId = null;
     $("pipeDlgTitle").textContent = "＋ Add Prospect";
     $("pipeForm").reset();
+    syncSideFields();
     $("pipeDlg").showModal();
   });
   $("pipeCancel").addEventListener("click", ()=> $("pipeDlg").close());
@@ -728,7 +745,8 @@ window.__bootDash = function(){
       name: $("pName").value.trim(),
       area: $("pArea").value.trim(),
       side: $("pSide").value,
-      price: Math.max(0, parseFloat($("pPrice").value) || 0)
+      price: Math.max(0, parseFloat($("pPrice").value) || 0),
+      price2: $("pSide").value === "Both" ? Math.max(0, parseFloat($("pPrice2").value) || 0) : 0
     };
     if (!rec.name || !rec.price) return;
     if (editingId != null){
