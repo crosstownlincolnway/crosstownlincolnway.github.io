@@ -191,6 +191,13 @@
   .chip.side-buy{background:var(--teal-soft);color:var(--teal)}
   .chip.side-sell{background:var(--amber-soft);color:var(--accent-deep)}
   .chip.side-both{background:#ece9fa;color:#4a3aa7}
+  .chip.temp-hot{background:#fde6df;color:#b3401f}
+  .chip.temp-warm{background:#fdeeda;color:#8a5714}
+  .chip.temp-cold{background:#e5eef8;color:#2f5d8a}
+  .chip.time{background:#eef1f6;color:#41506b}
+  .p-name{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .p-note{margin-top:5px;font-size:.82rem;color:var(--ink-2);line-height:1.4;max-width:40ch}
+  .p-facts{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
   .chip.money{background:#f2f6ef;color:#3c6b34}
   .closings-total{padding:14px 20px;border-top:1px dashed var(--line);font-size:.92rem;color:var(--ink-2)}
   .closings-total b{color:var(--ink)}
@@ -246,11 +253,12 @@
   .dlg-head{padding:20px 24px 0;font-size:1.15rem;font-weight:800}
   .dlg-body{padding:16px 24px 24px;display:flex;flex-direction:column;gap:14px}
   .field label{display:block;font-size:.82rem;font-weight:700;color:var(--ink-2);margin-bottom:5px}
-  .field input,.field select{
+  .field input,.field select,.field textarea{
     width:100%;border:1.5px solid var(--line);border-radius:11px;padding:10px 12px;font-size:.98rem;
     font-family:inherit;color:var(--ink);background:#fff;outline:none;transition:border-color .15s;
   }
-  .field input:focus,.field select:focus{border-color:var(--accent)}
+  .field textarea{resize:vertical;line-height:1.45}
+  .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent)}
   .dlg-actions{display:flex;justify-content:flex-end;gap:10px;padding-top:4px}
   .ghost-btn{border:1px solid var(--line);background:#fff;border-radius:11px;padding:9px 16px;font-weight:600;cursor:pointer;color:var(--ink-2)}
   .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -452,6 +460,31 @@
       <label for="pPrice2">Purchase price ($)</label>
       <input type="number" id="pPrice2" min="0" step="any" placeholder="e.g. 500000">
     </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="pTemp">How hot are they?</label>
+        <select id="pTemp">
+          <option value="Hot">🔥 Hot</option>
+          <option value="Warm" selected>🌤️ Warm</option>
+          <option value="Cold">❄️ Cold</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="pTimeline">Timeline</label>
+        <select id="pTimeline">
+          <option value="ASAP">ASAP — next 30 days</option>
+          <option value="1-3 mo" selected>1–3 months</option>
+          <option value="3-6 mo">3–6 months</option>
+          <option value="6-12 mo">6–12 months</option>
+          <option value="12+ mo">12+ months</option>
+          <option value="Watching">Just watching</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label for="pNotes">What are they looking for? <span style="font-weight:400;color:var(--ink-3)">(optional)</span></label>
+      <textarea id="pNotes" rows="2" maxlength="240" placeholder="e.g. 3BR ranch, big yard, Lincoln-Way East, wants to close before school starts"></textarea>
+    </div>
     <div class="dlg-actions">
       <button type="button" class="ghost-btn" id="pipeCancel">Cancel</button>
       <button type="submit" class="add-btn" style="padding:9px 18px" id="pipeSave">Save</button>
@@ -459,7 +492,7 @@
   </form>
 </dialog>
 
-<script>window.DASH_ENC = {"v": 1, "slug": "jaclyn", "salt": "7JBFV5H0r8n/kAQEXux1VQ==", "iter": 300000, "iv": "4qVrh4NZr4YIhcvU", "ct": "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"};</script>
+<script>window.DASH_ENC = {"v": 1, "slug": "jaclyn", "salt": "7JBFV5H0r8n/kAQEXux1VQ==", "iter": 300000, "iv": "NwzJAeGEtboXDIcp", "ct": "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"};</script>
 <script>
 /* =====================================================================
    DAILY DASH — shared template logic (identical for every agent)
@@ -468,6 +501,8 @@ window.__bootDash = function(){
   const D = window.DASH_DATA;
   const LS = key => `dailydash:${D.agent.slug}:${key}`;
   const COMMISSION_RATE = 0.025;
+  const TEMP_ORDER = {Hot:0, Warm:1, Cold:2};
+  const TIME_ORDER = {"ASAP":0, "1-3 mo":1, "3-6 mo":2, "6-12 mo":3, "12+ mo":4, "Watching":5};
   const $ = id => document.getElementById(id);
 
   /* ---------- helpers ---------- */
@@ -675,15 +710,28 @@ window.__bootDash = function(){
     body.innerHTML = "";
     $("pipeEmpty").style.display = pipeline.length ? "none" : "block";
     let total = 0;
-    pipeline.forEach(p=>{
+    const ordered = pipeline.slice().sort((a,b)=>
+      (TEMP_ORDER[a.temp || "Warm"] - TEMP_ORDER[b.temp || "Warm"]) ||
+      ((TIME_ORDER[a.timeline] ?? 9) - (TIME_ORDER[b.timeline] ?? 9)));
+    ordered.forEach(p=>{
       const totalPrice = p.price + (p.price2 || 0);
       const comm = totalPrice * COMMISSION_RATE;
       total += comm;
+      const temp = p.temp || "Warm";
+      const tempChip = temp === "Hot" ? "🔥 Hot" : temp === "Cold" ? "❄️ Cold" : "🌤️ Warm";
       const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td><b>${esc(p.name)}</b></td>
+        <td>
+          <div class="p-name"><b>${esc(p.name)}</b><span class="chip temp-${temp.toLowerCase()}">${tempChip}</span></div>
+          ${p.notes ? `<div class="p-note">${esc(p.notes)}</div>` : ""}
+        </td>
         <td>${esc(p.area)}</td>
-        <td><span class="chip side-${p.side.toLowerCase()}">${p.side === "Buy" ? "🔑 Buying" : p.side === "Sell" ? "🏷️ Selling" : "🔄 Both"}</span></td>
+        <td>
+          <div class="p-facts">
+            <span class="chip side-${p.side.toLowerCase()}">${p.side === "Buy" ? "🔑 Buying" : p.side === "Sell" ? "🏷️ Selling" : "🔄 Both"}</span>
+            ${p.timeline ? `<span class="chip time">⏱️ ${esc(p.timeline)}</span>` : ""}
+          </div>
+        </td>
         <td class="num" style="text-align:right">${fmtMoney(totalPrice)}</td>
         <td class="num comm" style="text-align:right">${fmtMoney(comm)}</td>
         <td>
@@ -696,7 +744,7 @@ window.__bootDash = function(){
     });
     countUp($("pipeTotal"), total, fmtMoney, 800);
     $("pipeCount").textContent = pipeline.length
-      ? `${pipeline.length} prospect${pipeline.length>1?"s":""} × 2.5% of price point`
+      ? `${pipeline.length} prospect${pipeline.length>1?"s":""} × 2.5% — sorted hottest first 🔥`
       : "Add prospects above to see what's possible";
   }
 
@@ -718,6 +766,9 @@ window.__bootDash = function(){
       $("pName").value = item.name; $("pArea").value = item.area;
       $("pSide").value = item.side; $("pPrice").value = item.price;
       $("pPrice2").value = item.price2 || "";
+      $("pTemp").value = item.temp || "Warm";
+      $("pTimeline").value = item.timeline || "1-3 mo";
+      $("pNotes").value = item.notes || "";
       syncSideFields();
       $("pipeDlg").showModal();
     }
@@ -746,7 +797,10 @@ window.__bootDash = function(){
       area: $("pArea").value.trim(),
       side: $("pSide").value,
       price: Math.max(0, parseFloat($("pPrice").value) || 0),
-      price2: $("pSide").value === "Both" ? Math.max(0, parseFloat($("pPrice2").value) || 0) : 0
+      price2: $("pSide").value === "Both" ? Math.max(0, parseFloat($("pPrice2").value) || 0) : 0,
+      temp: $("pTemp").value,
+      timeline: $("pTimeline").value,
+      notes: $("pNotes").value.trim()
     };
     if (!rec.name || !rec.price) return;
     if (editingId != null){

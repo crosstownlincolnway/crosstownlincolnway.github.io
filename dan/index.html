@@ -191,6 +191,13 @@
   .chip.side-buy{background:var(--teal-soft);color:var(--teal)}
   .chip.side-sell{background:var(--amber-soft);color:var(--accent-deep)}
   .chip.side-both{background:#ece9fa;color:#4a3aa7}
+  .chip.temp-hot{background:#fde6df;color:#b3401f}
+  .chip.temp-warm{background:#fdeeda;color:#8a5714}
+  .chip.temp-cold{background:#e5eef8;color:#2f5d8a}
+  .chip.time{background:#eef1f6;color:#41506b}
+  .p-name{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .p-note{margin-top:5px;font-size:.82rem;color:var(--ink-2);line-height:1.4;max-width:40ch}
+  .p-facts{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
   .chip.money{background:#f2f6ef;color:#3c6b34}
   .closings-total{padding:14px 20px;border-top:1px dashed var(--line);font-size:.92rem;color:var(--ink-2)}
   .closings-total b{color:var(--ink)}
@@ -246,11 +253,12 @@
   .dlg-head{padding:20px 24px 0;font-size:1.15rem;font-weight:800}
   .dlg-body{padding:16px 24px 24px;display:flex;flex-direction:column;gap:14px}
   .field label{display:block;font-size:.82rem;font-weight:700;color:var(--ink-2);margin-bottom:5px}
-  .field input,.field select{
+  .field input,.field select,.field textarea{
     width:100%;border:1.5px solid var(--line);border-radius:11px;padding:10px 12px;font-size:.98rem;
     font-family:inherit;color:var(--ink);background:#fff;outline:none;transition:border-color .15s;
   }
-  .field input:focus,.field select:focus{border-color:var(--accent)}
+  .field textarea{resize:vertical;line-height:1.45}
+  .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent)}
   .dlg-actions{display:flex;justify-content:flex-end;gap:10px;padding-top:4px}
   .ghost-btn{border:1px solid var(--line);background:#fff;border-radius:11px;padding:9px 16px;font-weight:600;cursor:pointer;color:var(--ink-2)}
   .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -452,6 +460,31 @@
       <label for="pPrice2">Purchase price ($)</label>
       <input type="number" id="pPrice2" min="0" step="any" placeholder="e.g. 500000">
     </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="pTemp">How hot are they?</label>
+        <select id="pTemp">
+          <option value="Hot">🔥 Hot</option>
+          <option value="Warm" selected>🌤️ Warm</option>
+          <option value="Cold">❄️ Cold</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="pTimeline">Timeline</label>
+        <select id="pTimeline">
+          <option value="ASAP">ASAP — next 30 days</option>
+          <option value="1-3 mo" selected>1–3 months</option>
+          <option value="3-6 mo">3–6 months</option>
+          <option value="6-12 mo">6–12 months</option>
+          <option value="12+ mo">12+ months</option>
+          <option value="Watching">Just watching</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label for="pNotes">What are they looking for? <span style="font-weight:400;color:var(--ink-3)">(optional)</span></label>
+      <textarea id="pNotes" rows="2" maxlength="240" placeholder="e.g. 3BR ranch, big yard, Lincoln-Way East, wants to close before school starts"></textarea>
+    </div>
     <div class="dlg-actions">
       <button type="button" class="ghost-btn" id="pipeCancel">Cancel</button>
       <button type="submit" class="add-btn" style="padding:9px 18px" id="pipeSave">Save</button>
@@ -459,7 +492,7 @@
   </form>
 </dialog>
 
-<script>window.DASH_ENC = {"v": 1, "slug": "dan", "salt": "tKMGruz+Fc+gZo04Jn6QXw==", "iter": 300000, "iv": "fzWQkG/UA38vpKKY", "ct": "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"};</script>
+<script>window.DASH_ENC = {"v": 1, "slug": "dan", "salt": "tKMGruz+Fc+gZo04Jn6QXw==", "iter": 300000, "iv": "ChiOsAMrFwo20S5A", "ct": "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"};</script>
 <script>
 /* =====================================================================
    DAILY DASH — shared template logic (identical for every agent)
@@ -468,6 +501,8 @@ window.__bootDash = function(){
   const D = window.DASH_DATA;
   const LS = key => `dailydash:${D.agent.slug}:${key}`;
   const COMMISSION_RATE = 0.025;
+  const TEMP_ORDER = {Hot:0, Warm:1, Cold:2};
+  const TIME_ORDER = {"ASAP":0, "1-3 mo":1, "3-6 mo":2, "6-12 mo":3, "12+ mo":4, "Watching":5};
   const $ = id => document.getElementById(id);
 
   /* ---------- helpers ---------- */
@@ -675,15 +710,28 @@ window.__bootDash = function(){
     body.innerHTML = "";
     $("pipeEmpty").style.display = pipeline.length ? "none" : "block";
     let total = 0;
-    pipeline.forEach(p=>{
+    const ordered = pipeline.slice().sort((a,b)=>
+      (TEMP_ORDER[a.temp || "Warm"] - TEMP_ORDER[b.temp || "Warm"]) ||
+      ((TIME_ORDER[a.timeline] ?? 9) - (TIME_ORDER[b.timeline] ?? 9)));
+    ordered.forEach(p=>{
       const totalPrice = p.price + (p.price2 || 0);
       const comm = totalPrice * COMMISSION_RATE;
       total += comm;
+      const temp = p.temp || "Warm";
+      const tempChip = temp === "Hot" ? "🔥 Hot" : temp === "Cold" ? "❄️ Cold" : "🌤️ Warm";
       const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td><b>${esc(p.name)}</b></td>
+        <td>
+          <div class="p-name"><b>${esc(p.name)}</b><span class="chip temp-${temp.toLowerCase()}">${tempChip}</span></div>
+          ${p.notes ? `<div class="p-note">${esc(p.notes)}</div>` : ""}
+        </td>
         <td>${esc(p.area)}</td>
-        <td><span class="chip side-${p.side.toLowerCase()}">${p.side === "Buy" ? "🔑 Buying" : p.side === "Sell" ? "🏷️ Selling" : "🔄 Both"}</span></td>
+        <td>
+          <div class="p-facts">
+            <span class="chip side-${p.side.toLowerCase()}">${p.side === "Buy" ? "🔑 Buying" : p.side === "Sell" ? "🏷️ Selling" : "🔄 Both"}</span>
+            ${p.timeline ? `<span class="chip time">⏱️ ${esc(p.timeline)}</span>` : ""}
+          </div>
+        </td>
         <td class="num" style="text-align:right">${fmtMoney(totalPrice)}</td>
         <td class="num comm" style="text-align:right">${fmtMoney(comm)}</td>
         <td>
@@ -696,7 +744,7 @@ window.__bootDash = function(){
     });
     countUp($("pipeTotal"), total, fmtMoney, 800);
     $("pipeCount").textContent = pipeline.length
-      ? `${pipeline.length} prospect${pipeline.length>1?"s":""} × 2.5% of price point`
+      ? `${pipeline.length} prospect${pipeline.length>1?"s":""} × 2.5% — sorted hottest first 🔥`
       : "Add prospects above to see what's possible";
   }
 
@@ -718,6 +766,9 @@ window.__bootDash = function(){
       $("pName").value = item.name; $("pArea").value = item.area;
       $("pSide").value = item.side; $("pPrice").value = item.price;
       $("pPrice2").value = item.price2 || "";
+      $("pTemp").value = item.temp || "Warm";
+      $("pTimeline").value = item.timeline || "1-3 mo";
+      $("pNotes").value = item.notes || "";
       syncSideFields();
       $("pipeDlg").showModal();
     }
@@ -746,7 +797,10 @@ window.__bootDash = function(){
       area: $("pArea").value.trim(),
       side: $("pSide").value,
       price: Math.max(0, parseFloat($("pPrice").value) || 0),
-      price2: $("pSide").value === "Both" ? Math.max(0, parseFloat($("pPrice2").value) || 0) : 0
+      price2: $("pSide").value === "Both" ? Math.max(0, parseFloat($("pPrice2").value) || 0) : 0,
+      temp: $("pTemp").value,
+      timeline: $("pTimeline").value,
+      notes: $("pNotes").value.trim()
     };
     if (!rec.name || !rec.price) return;
     if (editingId != null){
