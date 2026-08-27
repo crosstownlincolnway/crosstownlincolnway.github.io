@@ -150,6 +150,11 @@
   footer{margin-top:48px;text-align:center;color:var(--ink-3);font-size:.88rem}
   .fresh{display:inline-flex;align-items:center;gap:7px}
   .fresh .dot{width:8px;height:8px;border-radius:50%;background:#0f8a43;box-shadow:0 0 0 3px rgba(15,138,67,.18)}
+  /* stale-data warning: shown when generatedAt is more than 36h old */
+  .fresh.stale{background:#fff4e5;border:1px solid #f0b357;border-radius:999px;padding:5px 12px 5px 10px}
+  .fresh.stale .dot{background:#c8791a;box-shadow:0 0 0 3px rgba(200,121,26,.18);animation:stalePulse 2s ease-in-out infinite}
+  .fresh.stale #freshness{color:#8a5310;font-weight:700}
+  @keyframes stalePulse{0%,100%{opacity:1}50%{opacity:.45}}
   .note{margin-top:6px;font-size:.82rem}
 </style>
 </head>
@@ -189,7 +194,7 @@
   </footer>
 </div>
 
-<script>window.DASH_ENC = {"v": 1, "slug": "leaderboard", "salt": "ROPsVZVAZ1eb70hhOC2s6w==", "iter": 300000, "iv": "F63MfPrXkRrUuKc1", "ct": "hYpC+H3B8DyjKDpM46XkwN9iq2uU5TQPpZKhRN9KHYCLgSTJRFnD2PW8nHLeU9aJdv5N/no8rZ9uX+b1AtXm8kQeB+sqjgk+I1hYb/D35UtvJd8w8ikJEy3Ba1a3fGZoaWz/SgkklcLXUX0MyJtwlnuwF7aeerb/kmqVc7UVPgW3ru7+Be3VMJXEqIlF5AqmuJckT8kbEO/NtrxH8gFatt2KhfsoYwXtXTPN5JGCnr6dFyF2GLEco8yW4mUjjjJOLFNHhbRVef48L3+GGT2VwmYHR0ub3hfp1709c6JZWqNHaeO9lCL1ipdMHTlYxcdJnPdUnxUif0Qdme2EodGixGP4Vn7y6ximD9+5qDRwE4inBTrwVgb/9oluhreIpRA9AyGD/K3X+hMfRW7/apbQ3s3i/WKia3N+wYPXtPDju3DsdmWkbqI/q/GnHTy2JJ7TYHLPoWgJGpqJ7xROnkzdYjhEdgXzXVBSu3jk10nP3KGRP3+AsoJRPmVZjGYo7pnkZ3O4DAItEa9tz+VimXEFSyRTKAbaPreHJesBze/a9SBf8TrXrZcdklfnNMYOJS2T8/GpBAu+m8uN50Vl9Jqc7caNF8TARCP438M7In2PfIXRaT+X4Rqz1Lr7e7D+bIvuPZMSzU50UiW8lj5DtDW/lLTXO0sS8jz+dV0wlumrgAXUWNWm6ekGH5a9j1TZu0Hlp7Qq6ZstjAhJlHKoGH4lpb3aaVONCeC9aIJz7xhuUcEVNBHD9xxK80ViNeui41Zau2Y2lcgxp8ZLX59SVzOfhyxK6YEV6d3Eqb0rf1GNR3Oy9liL8jSzyV/z0s/2P/ra5c+P2O9EP7cGN8QyCE2izNZJ2jpq0g/jH4lLUdlxdNuVYU9Cs1BSbh84l2CUrDiOXsFQTAwW67XoHsBnfjXKcQ1Zk3fFoeaf1bMn+ZWWrgBru/1MNLMLvMMMMOjFoLOP6UrdFdPSWBKwfc0mH5bqmhtlq2ezwWxLqgxLsJbyE57gPsXngbLuup58rqYzMOEkvAjX7VJkQv+P0nTfTYSlPr0EvcNytweqPvZFpjJnUPjk49pyvVchUU90hYOFQA0rYbI9IzEvTWGxaZNNaCzxHyY465MtzziTeOek+AZxFtyjIl6tbqX0NnSo7Sjq8IgzmxFlaOIPTOo/Vv2r/+IUntj/2NXBS2HMHe52YXAiD3xYhGdstbsjueJSw48I8yiwpxt7bQIMS0TupC3QDEYPxHWwf2Ho1Sj6EY+3JgEl4HU3lQgGOx5sIJ9iavY4Wx1alde3EmmA1PvPu1JQjorEQ5WYIlm/LNIw4TjvVhZCXYxcb0aJdyo6j/Cm0qSMav/GPzp4Jiti4ScEfpYxBr5/oO8fDaxUceFvCcD8SCGuZNhW1VgZipRH2JpvID3lrxhAju/Od7V+rko/Fg1TjUziCIpNeJIUF5Pu5aVd0tQknzFNo6TWKg3cEpU/EOerdmeriALQ9M+kwe7r7TElIs1Bar8bJQg4hScFQkkrnFABUVWo/noc"};</script>
+<script>window.DASH_ENC = {"v": 1, "slug": "leaderboard", "salt": "ROPsVZVAZ1eb70hhOC2s6w==", "iter": 300000, "iv": "2fT3w3vS0HAm2H6y", "ct": "LhEEDe6bAEc8nfE52Ghs+aJjPcVFVAQA9RmZRiuOG0lZbiVwuZAsP6i/8YPfd+C9w4dn0oCRAGTMsbl/gIuwu222bOJ3JNm+tLmLvXcTTq9gf6NFnUN4FxAfgAgOP6CW6pNZ+h4cZRrs3XDLzMSnpIV0xQ8jZiQZ7aORvJTU166/jMdF6iHUURbduSROTPv/Q2U2qwj9zBWTy7Q3LJx6CVhUoS8DPA//UulLkXvlqfHfX7A/kLWp8DD+6oDmW0P07wP52kHUkmhq0MY7cK+A5Ok0c8m8WnPlZr/0zXvwiWdBrBYX0jHX4yREesqxeHgT5QFZtnyiw1MyfcRGx+sfGVVeMkMR6Zo7eDd2mGLtm2PcqH1kM5iuk3aqA1lG7T7krqAxWaicTCDhqccitiLL9ZoT3SPAfa51sifov4wZtv52+0nolu7vXP4OK173LtI8bgpVTtriUzkLS2GaU3MxrO4D80WIvCZ08UpMwuzgoyaze9YOZiOkEafeFL4Tz7YArDqfrtnZWKcTjc67BmXrAN2TKVfAIb5drl+SVeOSAnu4Cm+yEKxEJaQeNgt5N1w3eXIzJH+2hSBS5bSEObgNf4vQfEtKXFALz3q+ZHJZhQN5k5zXizfyMjc5tLT4/tMZ+XpxZpRGqiASZKNP51hZvRBtpiAT7JH2pIoeuth6wtrsvQR7mbW7Cgkf/GvoMhiLsa6dvfaF05LsdUgKJ/pYS3AHrwWRBVzkeYBzyewV/dXMP5pfgzka8UjCdS7NzQbAVhqo8MwTh2iRxkMC6SLIHS7IzfsrE+cnbRSnHUs5HCeU3l6ZC65oBlUzKZhYP0lBpKpwnD3K4v1wyA0dOj3MRJeTXKJyP/WyWLbobsHN4I6G/RYwsK4fc+WdWsrLjNNsXjczV7Y+jwFnpBllfUGgUlHvzqavGnzpjL9pzIPfjYB1Ue3rdReyGqEbbgiSp+WizR6XcS2dsPrMakccBWZbuioc4iq6eNvZD1J7UfQpKUb4E2+UrImSv5fAwgiT9M6mzI7SCYw2EN/VoioICbeb026qrG+eq7slVmpIVMGQTP4U5mqo4BIImLN3XUpUhh19mav4J568pYSZl+oCgSpu2kp99FBZ88SQhbWiaYrNxl2TcgeDF8sKj/FojtR2eIqb8j163+aX4d5ggjFYzuaMYWC2Z/xUBcbHmHgYc3G4n1v1O6aDI4guUJSx/oDDaFw4HToXQO/cMg1uRoN01IDN5sOnwAGDJAl0Z+iTJoyzKyIc61EzU0dlz2lsGhgEhzUAro+mmC36zk4/OKvUQIooauCm/mHJq238LYg+cstPVqPXvj9NAOaDKVpZjHJEMPyqTSTBNlqrrU41TnuuXYJawibY9GigcqLhtN3kPAzAh+5C+i3og9l1cfMoTk7AYThECwNXM5uNXgnCaX4J4Ms2WxkFssictPvnqJxg1MOQd22RM3GlXmOUkWa6hjx6Fq7bKejjKLwYJFJQLVJJ92jjGbtzWYierq3j4Vg9lUkpFsc78Tpe"};</script>
 <script>
 window.__bootDash = function(){
   const D = window.LB_DATA;
@@ -267,8 +272,21 @@ window.__bootDash = function(){
   renderPodium(); renderStandings();
 
   const gen = new Date(D.generatedAt);
-  $("freshness").textContent = "Fresh data pulled " + gen.toLocaleDateString("en-US",{month:"short",day:"numeric"}) +
+  const stamp = gen.toLocaleDateString("en-US",{month:"short",day:"numeric"}) +
     " at " + gen.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"});
+  const ageHrs = (Date.now() - gen.getTime()) / 36e5;
+  const freshEl = $("freshness");
+  const wrapEl = freshEl.parentElement;
+  if (ageHrs > 36) {
+    const days = Math.floor(ageHrs / 24);
+    const age = days >= 1 ? (days === 1 ? "1 day" : days + " days") : Math.floor(ageHrs) + " hours";
+    wrapEl.classList.add("stale");
+    freshEl.textContent = "⚠️ These numbers are " + age + " old — last updated " + stamp +
+      ". The morning refresh has not run since.";
+  } else {
+    wrapEl.classList.remove("stale");
+    freshEl.textContent = "Fresh data pulled " + stamp;
+  }
 };
 if (window.LB_DATA) window.__bootDash();
 </script>
